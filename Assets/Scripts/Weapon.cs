@@ -49,7 +49,7 @@ public class Weapon : MonoBehaviour
   {
     if (bulletPrefab == null)
       return;
-    GameObject.Instantiate(bulletPrefab, muzzlePosition.position, muzzlePosition.rotation);
+    ObjectPoolService.SpawnObject(bulletPrefab, muzzlePosition.position, muzzlePosition.rotation);
   }
 
   #endregion // Firing

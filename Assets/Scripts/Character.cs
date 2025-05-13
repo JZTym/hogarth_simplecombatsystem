@@ -40,7 +40,7 @@ public class Character : MonoBehaviour, IDamageable
 
   public void Kill()
   {
-    onDeathEvt.Invoke(this);
+    onDeathEvt?.Invoke(this);
     onDeathEvt.RemoveAllListeners();
 
     // Do death stuff

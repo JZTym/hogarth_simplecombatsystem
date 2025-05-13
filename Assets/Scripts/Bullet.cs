@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
       return;
     var damageable = other.GetComponent<IDamageable>();
     damageable.Damage(data.Damage);
-    Destroy(gameObject);
+    ObjectPoolService.DespawnObject(gameObject);
   }
 
   // Update is called once per frame
@@ -26,7 +26,7 @@ public class Bullet : MonoBehaviour
     if (transform.position.x < CameraService.Min.x || transform.position.x > CameraService.Max.x ||
       transform.position.z < CameraService.Min.z || transform.position.z > CameraService.Max.z)
     {
-      Destroy(gameObject);
+      ObjectPoolService.DespawnObject(gameObject);
     }
   }
 }

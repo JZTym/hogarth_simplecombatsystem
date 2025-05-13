@@ -51,7 +51,7 @@ MonoBehaviour:
     Weapon: {fileID: 568798201672892372}
     Health: 100
     MoveSpeed: 5
-    RotateSpeed: 20
+    RotateSpeed: 80
   target: {fileID: 0}
   state: 0
 --- !u!54 &193779879369963401
