@@ -4,10 +4,14 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Character : MonoBehaviour
+public interface IDamageable
 {
+  void Damage(float damage);
+}
 
-  public CharacterData data;
+public class Character : MonoBehaviour, IDamageable
+{
+  public CharacterData Data;
   public Character target;
   private UnityEvent<Character> onDeathEvt = new UnityEvent<Character>();
 
@@ -25,6 +29,15 @@ public class Character : MonoBehaviour
 
   #endregion // Events
 
+  public void Damage(float damage)
+  {
+    Data.Health -= damage;
+    if (Data.Health <= 0)
+    {
+      Kill();
+    }
+  }
+
   public void Kill()
   {
     onDeathEvt.Invoke(this);
@@ -39,7 +52,7 @@ public class Character : MonoBehaviour
   // Start is called once before the first execution of Update after the MonoBehaviour is created
   void Start()
   {
-    if (data == null)
+    if (Data == null)
     {
       Debug.LogWarning("Character data is null!");
       return;
@@ -62,7 +75,6 @@ public class Character : MonoBehaviour
         UpdateMovement();
         break;
       case State.Attacking:
-        UpdateAttacks();
         break;
     }
   }
@@ -84,13 +96,25 @@ public class Character : MonoBehaviour
   private void CheckState()
   {
     if (target == null)
+    {
+      StopAttacking();
       state = State.Idle;
+    }
     else if (!IsAimedCorrectly())
+    {
+      StopAttacking();
       state = State.Rotating;
+    }
     else if (!IsInRange())
+    {
+      StopAttacking();
       state = State.Moving;
+    }
     else
+    {
+      StartAttacking();
       state = State.Attacking;
+    }
   }
 
   #endregion // States
@@ -101,15 +125,17 @@ public class Character : MonoBehaviour
   {
     if (target == null)
       return false;
-    return data.Weapon.Range >= Vector3.Distance(target.transform.position, transform.position);
+    return Data.Weapon.Data.Range >= Vector3.Distance(target.transform.position, transform.position);
   }
 
-  private void UpdateAttacks()
+  private void StartAttacking()
   {
-    if (!IsAimedCorrectly())
-      return;
-    if (!IsInRange())
-      return;
+    Data.Weapon.IsFiring = true;
+  }
+
+  private void StopAttacking()
+  {
+    Data.Weapon.IsFiring = false;
   }
 
   #endregion // Attacking
@@ -120,7 +146,7 @@ public class Character : MonoBehaviour
   {
     if (target == null)
       return;
-    transform.position = Vector3.MoveTowards(transform.position, target.transform.position, data.MoveSpeed * Time.deltaTime);
+    transform.position = Vector3.MoveTowards(transform.position, target.transform.position, Data.MoveSpeed * Time.deltaTime);
   }
 
   #endregion // Moving
@@ -142,7 +168,7 @@ public class Character : MonoBehaviour
     transform.rotation = Quaternion.RotateTowards(
       transform.rotation,
       Quaternion.LookRotation(target.transform.position - transform.position),
-      data.RotateSpeed * Time.deltaTime);
+      Data.RotateSpeed * Time.deltaTime);
   }
 
   private void AcquireNewTarget()

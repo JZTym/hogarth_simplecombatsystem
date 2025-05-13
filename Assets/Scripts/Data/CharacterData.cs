@@ -3,7 +3,7 @@
 [Serializable]
 public class CharacterData
 {
-  public WeaponData Weapon;
+  public Weapon Weapon;
   public float Health;
   public float MoveSpeed;
   public float RotateSpeed;

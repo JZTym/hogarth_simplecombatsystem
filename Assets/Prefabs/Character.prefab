@@ -10,9 +10,11 @@ GameObject:
   m_Component:
   - component: {fileID: 1588266313523569010}
   - component: {fileID: 8743627215419453978}
+  - component: {fileID: 193779879369963401}
+  - component: {fileID: 299411275753636363}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -45,15 +47,61 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 940eb203f46948e45b45fd825d485942, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  data:
-    Weapon:
-      AttackSpeed: 20
-      Range: 5
+  Data:
+    Weapon: {fileID: 568798201672892372}
     Health: 100
-    MoveSpeed: 4
-    RotateSpeed: 90
+    MoveSpeed: 5
+    RotateSpeed: 20
   target: {fileID: 0}
   state: 0
+--- !u!54 &193779879369963401
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3173049632849218933}
+  serializedVersion: 4
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_CenterOfMass: {x: 0, y: 0, z: 0}
+  m_InertiaTensor: {x: 1, y: 1, z: 1}
+  m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ImplicitCom: 1
+  m_ImplicitTensor: 1
+  m_UseGravity: 1
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!135 &299411275753636363
+SphereCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3173049632849218933}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Radius: 0.5
+  m_Center: {x: 0, y: 0, z: 0}
 --- !u!1 &3203269768168745260
 GameObject:
   m_ObjectHideFlags: 0
@@ -65,7 +113,6 @@ GameObject:
   - component: {fileID: 3329616394967079110}
   - component: {fileID: 5929275783855504581}
   - component: {fileID: 3448001739464453125}
-  - component: {fileID: 5458649266182731647}
   m_Layer: 0
   m_Name: Model
   m_TagString: Untagged
@@ -142,27 +189,37 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!135 &5458649266182731647
-SphereCollider:
+--- !u!1 &3210284297637774421
+GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3203269768168745260}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 3
-  m_Radius: 0.5
-  m_Center: {x: 0, y: 0, z: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 5281429116868181708}
+  m_Layer: 0
+  m_Name: MuzzlePosition
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &5281429116868181708
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3210284297637774421}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.4}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1370942914118623163}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8984818601508201031
 GameObject:
   m_ObjectHideFlags: 0
@@ -174,9 +231,9 @@ GameObject:
   - component: {fileID: 1370942914118623163}
   - component: {fileID: 7262449197919077397}
   - component: {fileID: 7377487129719168708}
-  - component: {fileID: 6535671419632029928}
+  - component: {fileID: 568798201672892372}
   m_Layer: 0
-  m_Name: Cube
+  m_Name: Weapon
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -194,7 +251,8 @@ Transform:
   m_LocalPosition: {x: 0.00000011921, y: 0, z: 0.599}
   m_LocalScale: {x: 0.21446, y: 0.20579, z: 0.5681698}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 5281429116868181708}
   m_Father: {fileID: 3329616394967079110}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!33 &7262449197919077397
@@ -250,24 +308,21 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!65 &6535671419632029928
-BoxCollider:
+--- !u!114 &568798201672892372
+MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8984818601508201031}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 1, y: 1, z: 1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 80e4b5208fa376144bb82e56f462cc18, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Data:
+    AttackSpeed: 0.5
+    Range: 5
+  IsFiring: 0
+  bulletPrefab: {fileID: 8821896648844575551, guid: bd291a221b18eda40b54607a5ad99d12, type: 3}
+  muzzlePosition: {fileID: 5281429116868181708}
