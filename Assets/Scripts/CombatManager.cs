@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
-public class CombatManager : MonoBehaviour, ICharacterObserver
+public class CombatManager : MonoBehaviour
 {
   public List<Character> activeCharacters = new List<Character>();
 
@@ -16,27 +16,21 @@ public class CombatManager : MonoBehaviour, ICharacterObserver
     return others[i];
   }
 
-  #region Character Observer
-
-  public void OnNotify(CharacterState state, CharacterSubject context)
-  {
-    Character character = (Character)context;
-    if (character == null)
-      return;
-    activeCharacters.Remove(character);
-  }
-
-  public void OnNotify(int data, object context)
-  {
-    OnNotify((CharacterState) data, (Character) context);
-  }
-
-  #endregion // Character Observer
-
   // Start is called once before the first execution of Update after the MonoBehaviour is created
   void Awake()
   {
     CombatService.SetManager(this);
+  }
+
+  void Start()
+  {
+    foreach (Character character in activeCharacters)
+    {
+      character.SubscribeToOnDeathEvent((Character c) =>
+      {
+        activeCharacters.Remove(c);
+      });
+    }
   }
 
   // Update is called once per frame
