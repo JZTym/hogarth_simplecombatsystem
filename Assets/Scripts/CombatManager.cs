@@ -26,6 +26,8 @@ public class CombatManager : MonoBehaviour
   {
     foreach (Character character in activeCharacters)
     {
+      if (character == null)
+        continue;
       character.SubscribeToOnDeathEvent((Character c) =>
       {
         activeCharacters.Remove(c);

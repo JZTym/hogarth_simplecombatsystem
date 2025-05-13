@@ -47,12 +47,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   data:
     Weapon:
-      AttackSpeed: 0
-      Range: 0
-    Health: 0
-    MoveSpeed: 0
-    RotateSpeed: 0
+      AttackSpeed: 20
+      Range: 5
+    Health: 100
+    MoveSpeed: 4
+    RotateSpeed: 90
   target: {fileID: 0}
+  state: 0
 --- !u!1 &3203269768168745260
 GameObject:
   m_ObjectHideFlags: 0

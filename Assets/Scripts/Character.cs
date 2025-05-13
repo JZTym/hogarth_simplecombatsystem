@@ -50,12 +50,100 @@ public class Character : MonoBehaviour
   // Update is called once per frame
   void Update()
   {
-
+    CheckState();
+    switch (state)
+    {
+      case State.Idle:
+        break;
+      case State.Rotating:
+        UpdateRotation();
+        break;
+      case State.Moving:
+        UpdateMovement();
+        break;
+      case State.Attacking:
+        UpdateAttacks();
+        break;
+    }
   }
 
   #endregion // MonoBehaviour
 
+  #region States
+
+  public State state = State.Idle;
+
+  public enum State
+  {
+    Idle,
+    Moving,
+    Rotating,
+    Attacking,
+  }
+
+  private void CheckState()
+  {
+    if (target == null)
+      state = State.Idle;
+    else if (!IsAimedCorrectly())
+      state = State.Rotating;
+    else if (!IsInRange())
+      state = State.Moving;
+    else
+      state = State.Attacking;
+  }
+
+  #endregion // States
+
+  #region Attacking
+
+  private bool IsInRange()
+  {
+    if (target == null)
+      return false;
+    return data.Weapon.Range >= Vector3.Distance(target.transform.position, transform.position);
+  }
+
+  private void UpdateAttacks()
+  {
+    if (!IsAimedCorrectly())
+      return;
+    if (!IsInRange())
+      return;
+  }
+
+  #endregion // Attacking
+
+  #region Moving
+
+  private void UpdateMovement()
+  {
+    if (target == null)
+      return;
+    transform.position = Vector3.MoveTowards(transform.position, target.transform.position, data.MoveSpeed * Time.deltaTime);
+  }
+
+  #endregion // Moving
+
   #region Targetting
+
+  private bool IsAimedCorrectly()
+  {
+    if (target == null)
+      return false;
+    return transform.rotation == Quaternion.LookRotation(target.transform.position - transform.position);
+  }
+
+  private void UpdateRotation()
+  {
+    if (target == null)
+      return;
+
+    transform.rotation = Quaternion.RotateTowards(
+      transform.rotation,
+      Quaternion.LookRotation(target.transform.position - transform.position),
+      data.RotateSpeed * Time.deltaTime);
+  }
 
   private void AcquireNewTarget()
   {
